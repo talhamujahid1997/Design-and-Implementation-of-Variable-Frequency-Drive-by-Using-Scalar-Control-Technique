@@ -1,0 +1,30 @@
+Controller Programming:
+float received_data;
+float data;           //for implimenting the formula of speed
+float data1;           //for implimenting the formula of speed
+float data2;              //for coverting time to milli second.
+void setup() {
+    pinMode(5,OUTPUT);
+     pinMode(6,OUTPUT); 
+      Serial.begin(9600);
+}
+
+void loop() {
+if (Serial.available()>0) {                                
+             
+                received_data = Serial.parseFloat();// its read the incoming data 
+                data=received_data*2;
+                data1=120/data;
+                data2=data1*1000;
+              Serial.print("I received: "); //it prints the speed on the serial monitor window
+              Serial.println(data2);         //it prints the speed on the serial monitor window
+        }
+digitalWrite(5,LOW);
+     delay(1);                     //for the dead time of the MOSFET in invertor circuit
+digitalWrite(6,HIGH);
+     delay(data2);
+digitalWrite(6,LOW);
+     delay(1);                    //for the dead time of the MOSFET in invertor circuit
+digitalWrite(5,HIGH);
+     delay(data2);
+}
